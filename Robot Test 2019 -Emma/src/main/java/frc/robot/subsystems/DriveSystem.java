@@ -15,48 +15,52 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.RobotMap;
 
 /**
-Allows us to makle the robot drive
-*/
+ * Allows us to makle the robot drive
+ */
 
 public class DriveSystem extends Subsystem {
 
-  //creating the talon
+  public static final DriveSystem INSTANCE = new DriveSystem();
+
+  // creating the talon
   private TalonSRX leftMaster;
-  private TalonSRX rightMaster; 
+  private TalonSRX rightMaster;
 
   public DriveSystem() {
 
-    //stating the location of the talons and their corresponding names 
+    // stating the location of the talons and their corresponding names
     leftMaster = new TalonSRX(RobotMap.LEFTMASTER);
     rightMaster = new TalonSRX(RobotMap.RIGHTMASTER);
 
-    initalizeDriveSystem(); 
+    initalizeDriveSystem();
   }
 
-  @Override 
+  public static DriveSystem getInstance() {
+    return INSTANCE;
+  }
+
+  @Override
   public void initDefaultCommand() {
   }
-  
+
   private void initalizeDriveSystem() {
 
-    //sets the speed to zero when we start the program
+    // sets the speed to zero when we start the program
     leftMaster.set(ControlMode.PercentOutput, 0.0);
-    rightMaster.set(ControlMode.PercentOutput, 0.0); 
+    rightMaster.set(ControlMode.PercentOutput, 0.0);
 
   }
 
-  public void drive(Double RightSpeed, Double LeftSpeed){
-    //sets the speed of the talons
+  public void drive(Double RightSpeed, Double LeftSpeed) {
+    // sets the speed of the talons
     rightMaster.set(ControlMode.PercentOutput, RightSpeed);
-    leftMaster.set(ControlMode.PercentOutput, LeftSpeed); 
+    leftMaster.set(ControlMode.PercentOutput, LeftSpeed);
 
   }
 
   public void stopDrive() {
     rightMaster.set(ControlMode.PercentOutput, 0.0);
-    leftMaster.set(ControlMode.PercentOutput, 0.0); 
+    leftMaster.set(ControlMode.PercentOutput, 0.0);
   }
-
-
 
 }
